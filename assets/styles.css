@@ -1,0 +1,982 @@
+:root {
+    color-scheme:dark;
+    --bg:#10110f;
+    --panel:#1b1d19;
+    --line:#383a32;
+    --muted:#aaa99e;
+    --red:#e64a32;
+    --gold:#e6b45a;
+    --green:#9bbd6b
+}
+* {
+    box-sizing:border-box
+}
+body {
+    margin:0;
+    background:radial-gradient(ellipse at 50% -20%,#392219 0,transparent 55%),var(--bg);
+    color:#f4f0e4;
+    font:16px/1.5 system-ui,-apple-system,sans-serif
+}
+main {
+    max-width:1000px;
+    margin:auto;
+    padding:42px 22px 64px
+}
+.eyebrow {
+    color:var(--gold);
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:700
+}
+h1 {
+    font-size:clamp(34px,6vw,58px);
+    line-height:1.02;
+    margin:10px 0 14px;
+    letter-spacing:-.045em
+}
+h1 span {
+    color:var(--red)
+}
+.lead {
+    max-width:720px;
+    color:#c4c0b4;
+    margin:0 0 26px
+}
+.badge {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid #6b382b;
+    background:#211815;
+    color:#e7c5a7;
+    border-radius:99px;
+    padding:5px 11px;
+    font-size:12px;
+    margin-bottom:20px
+}
+.badge:before {
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--red)
+}
+.panel {
+    background:linear-gradient(145deg,#20211d,#171815);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px;
+    box-shadow:0 16px 52px #0006
+}
+.row {
+    display:flex;
+    gap:10px;
+    align-items:stretch
+}
+.code {
+    flex:1;
+    min-width:0;
+    background:#10110f;
+    border:1px solid #4c4e44;
+    border-radius:8px;
+    padding:14px 16px;
+    color:#f5d98b;
+    font:700 23px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    outline:none
+}
+.code:focus {
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px #e6b45a22
+}
+button {
+    border:0;
+    border-radius:8px;
+    padding:0 20px;
+    font:700 14px system-ui;
+    cursor:pointer;
+    background:var(--red);
+    color:#fff4e7
+}
+button:hover {
+    filter:brightness(1.1)
+}
+.msg {
+    min-height:25px;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:9px
+}
+.msg.error {
+    color:#ff806d
+}
+.msg.ok {
+    color:var(--green)
+}
+.result {
+    display:none;
+    margin-top:22px
+}
+.result.show {
+    display:block
+}
+.result h2 {
+    font-size:13px;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    margin:0 0 12px
+}
+.grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px
+}
+.stat {
+    background:#11120f;
+    border:1px solid #30322b;
+    border-radius:8px;
+    padding:12px 14px;
+    min-height:76px
+}
+.stat label {
+    display:block;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:#929287;
+    text-transform:uppercase;
+    margin-bottom:4px
+}
+.stat strong {
+    font-size:17px;
+    font-weight:650
+}
+.arsenal {
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px
+}
+.weapons,.ammo {
+    background:#11120f;
+    border:1px solid #30322b;
+    border-radius:8px;
+    padding:14px
+}
+.weapons label,.ammo label {
+    font-size:11px;
+    letter-spacing:.08em;
+    color:#929287;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:8px
+}
+.chips {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px
+}
+.chip {
+    border:1px solid #565448;
+    color:#ead8a8;
+    border-radius:5px;
+    padding:3px 8px;
+    font-size:12px
+}
+.empty {
+    color:#76776e;
+    font-size:13px
+}
+.ammo-line {
+    display:flex;
+    justify-content:space-between;
+    color:#dad7cc;
+    font-size:13px;
+    padding:2px 0
+}
+.info {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:16px
+}
+.card {
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:9px;
+    padding:16px 18px
+}
+.card h2 {
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--gold);
+    margin:0 0 7px
+}
+.card p {
+    margin:0;
+    color:#b9b7ad;
+    font-size:13px
+}
+.foot {
+    color:#858478;
+    font-size:12px;
+    margin-top:18px
+}
+.foot a {
+    color:#edbd66;
+    text-decoration:none
+}
+.foot a:hover {
+    text-decoration:underline
+}
+@media(max-width:640px) {
+    main {
+        padding:28px 14px
+    }
+    .panel {
+        padding:16px
+    }
+    .row {
+        flex-direction:column
+    }
+    .code {
+        font-size:20px
+    }
+    .row button {
+        min-height:48px
+    }
+    .grid {
+        grid-template-columns:repeat(2,1fr)
+    }
+    .arsenal,.info {
+        grid-template-columns:1fr
+    }
+
+}
+ .generator {
+    margin-top:16px
+}
+.generator summary {
+    cursor:pointer;
+    color:var(--gold);
+    font-weight:650
+}
+.gen-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:16px
+}
+.field label {
+    display:block;
+    color:#aaa99e;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin-bottom:5px
+}
+.field input,.field select {
+    width:100%;
+    background:#10110f;
+    border:1px solid #484a41;
+    border-radius:6px;
+    padding:9px 10px;
+    color:#f4f0e4;
+    font:inherit
+}
+.checks {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px
+}
+.checks label {
+    background:#11120f;
+    border:1px solid #383a32;
+    border-radius:6px;
+    padding:7px 9px;
+    font-size:12px;
+    color:#ddd8ca
+}
+.gen-actions {
+    display:flex;
+    gap:10px;
+    margin-top:16px
+}
+.gen-actions button {
+    min-height:42px
+}
+.gen-actions .secondary {
+    background:#393a32
+}
+.generated {
+    display:none;
+    margin-top:14px;
+    border:1px solid #4c4e44;
+    border-radius:8px;
+    padding:14px;
+    background:#10110f;
+    color:#f5d98b;
+    font:700 21px ui-monospace,monospace;
+    letter-spacing:.17em
+}
+.generated.show {
+    display:block
+}
+.generated small {
+    display:block;
+    color:#a5a397;
+    font:12px system-ui;
+    letter-spacing:0;
+    margin-top:6px
+}
+@media(max-width:640px) {
+    .gen-grid {
+        grid-template-columns:repeat(2,1fr)
+    }
+
+}
+
+/* Windows 95/98 desktop and beveled controls */ :root {
+    color-scheme:light;
+    --bg:#008080;
+    --panel:#c0c0c0;
+    --line:#808080;
+    --muted:#404040;
+    --red:#000080;
+    --gold:#000080;
+    --green:#006400
+}
+ body {
+    background:#008080;
+    color:#111;
+    font:14px/1.4 Tahoma,Verdana,Arial,sans-serif
+}
+ main {
+    position:relative;
+    margin:58px auto 30px;
+    padding:28px 18px 20px;
+    background:#c0c0c0;
+    border:2px solid;
+    border-color:#fff #404040 #404040 #fff;
+    box-shadow:2px 2px 0 #000
+}
+ main:before {
+    content:"DOOM Password Utility";
+    position:absolute;
+    left:-2px;
+    right:-2px;
+    top:-29px;
+    height:25px;
+    padding:3px 8px;
+    color:#fff;
+    font-weight:bold;
+    background:linear-gradient(90deg,#000080,#1084d0);
+    border:2px solid;
+    border-color:#fff #404040 #404040 #fff
+}
+ .eyebrow {
+    color:#404040;
+    letter-spacing:.08em
+}
+ h1 {
+    font-family:Tahoma,Verdana,Arial,sans-serif;
+    font-size:32px;
+    letter-spacing:-.03em;
+    color:#111;
+    text-shadow:1px 1px #fff
+}
+ h1 span {
+    color:#000080
+}
+ .lead {
+    color:#303030
+}
+ .badge {
+    border-radius:0;
+    background:#d4d0c8;
+    color:#111;
+    border:1px solid #808080;
+    padding:4px 8px;
+    margin-bottom:14px
+}
+ .badge:before {
+    border-radius:0;
+    background:#800000
+}
+ .panel,.card {
+    background:#c0c0c0;
+    border:2px solid;
+    border-color:#fff #404040 #404040 #fff;
+    border-radius:0;
+    box-shadow:none;
+    padding:14px
+}
+ .row {
+    gap:8px
+}
+ .code {
+    background:#fff;
+    color:#000080;
+    border:2px solid;
+    border-color:#404040 #fff #fff #404040;
+    border-radius:0;
+    padding:10px 12px;
+    letter-spacing:.15em
+}
+ .code:focus {
+    border-color:#404040 #fff #fff #404040;
+    box-shadow:none;
+    outline:1px dotted #000;
+    outline-offset:-5px
+}
+ button {
+    border:2px solid;
+    border-color:#fff #404040 #404040 #fff;
+    border-radius:0;
+    padding:4px 16px;
+    min-height:34px;
+    background:#c0c0c0;
+    color:#111;
+    font:14px Tahoma,Verdana,Arial,sans-serif;
+    box-shadow:1px 1px 0 #000
+}
+ button:hover {
+    filter:none;
+    background:#d4d0c8
+}
+ button:active {
+    border-color:#404040 #fff #fff #404040;
+    box-shadow:none;
+    padding:5px 15px 3px 17px
+}
+ button:focus-visible {
+    outline:1px dotted #000;
+    outline-offset:-5px
+}
+ .msg {
+    color:#404040
+}
+ .msg.error {
+    color:#800000
+}
+.msg.ok {
+    color:#006400
+}
+ .result h2,.card h2 {
+    color:#000080;
+    letter-spacing:.07em
+}
+ .stat,.weapons,.ammo {
+    background:#d4d0c8;
+    border:2px solid;
+    border-color:#808080 #fff #fff #808080;
+    border-radius:0;
+    padding:10px
+}
+ .stat label,.weapons label,.ammo label,.field label {
+    color:#404040
+}
+ .stat strong {
+    font-size:16px
+}
+ .chip {
+    background:#000080;
+    border:1px solid #000080;
+    border-radius:0;
+    color:#fff;
+    padding:2px 7px
+}
+ .empty {
+    color:#505050
+}
+ .ammo-line {
+    color:#111
+}
+ .card {
+    padding:12px 14px
+}
+ .card p {
+    color:#303030
+}
+ .foot {
+    color:#404040
+}
+ .foot a {
+    color:#000080;
+    text-decoration:underline
+}
+ .generator {
+    margin-top:12px
+}
+ .generator summary {
+    color:#000080;
+    text-decoration:underline
+}
+ .field input,.field select {
+    background:#fff;
+    border:2px solid;
+    border-color:#404040 #fff #fff #404040;
+    border-radius:0;
+    padding:7px 8px;
+    color:#111;
+    font:14px Tahoma,Verdana,Arial,sans-serif
+}
+ .field select {
+    -webkit-appearance:menulist;
+    appearance:menulist;
+    min-height:34px;
+    padding:5px 7px;
+    background-color:#fff;
+    background-image:none;
+    box-shadow:inset 1px 1px #808080
+}
+ .field input:focus,.field select:focus {
+    outline:1px dotted #000;
+    outline-offset:-5px
+}
+ .checks label {
+    background:#d4d0c8;
+    border:0;
+    border-radius:0;
+    color:#111;
+    padding:4px 6px
+}
+ .checks input[type="checkbox"] {
+    -webkit-appearance:none;
+    appearance:none;
+    position:relative;
+    width:13px;
+    height:13px;
+    margin:0 5px 0 0;
+    vertical-align:-2px;
+    background:#fff;
+    border:2px solid;
+    border-color:#404040 #fff #fff #404040;
+    border-radius:0;
+    box-shadow:inset 1px 1px #808080;
+    cursor:pointer
+}
+ .checks input[type="checkbox"]:checked:after {
+    content:"";
+    position:absolute;
+    left:1px;
+    top:1px;
+    width:7px;
+    height:7px;
+    border:0;
+    border-radius:0;
+    background:#111;
+    clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%)
+}
+ .checks input[type="checkbox"]:focus-visible {
+    outline:1px dotted #000;
+    outline-offset:2px
+}
+ .gen-actions .secondary {
+    background:#c0c0c0
+}
+ .generated {
+    background:#fff;
+    border:2px solid;
+    border-color:#404040 #fff #fff #404040;
+    border-radius:0;
+    color:#000080;
+    padding:10px 12px
+}
+ .generated small {
+    color:#404040
+}
+ @media(max-width:640px) {
+    main {
+        margin:58px 8px 20px;
+        padding:22px 12px 14px
+    }
+    .panel {
+        padding:12px
+    }
+    .row button {
+        min-height:42px
+    }
+    .gen-actions {
+        flex-wrap:wrap
+    }
+    .gen-actions button {
+        flex:1
+    }
+    .info {
+        gap:10px
+    }
+
+}
+
+/* Keep the Win95 bevels, recolor the interface with classic DOOM's stone, rust, and brass palette. */ :root {
+    --bg:#201915;
+    --panel:#51443a;
+    --line:#342a23;
+    --muted:#c3b49d;
+    --red:#8f2e21;
+    --gold:#c99b4b;
+    --green:#9ca66a
+}
+ body {
+    background:#201915;
+    color:#e1d4bc
+}
+ main {
+    background:#51443a;
+    color:#e1d4bc;
+    border-color:#c5b296 #241b17 #241b17 #c5b296;
+    box-shadow:2px 2px 0 #100c0a
+}
+ main:before {
+    color:#f3e5c8;
+    background:linear-gradient(90deg,#54221b,#87382a 55%,#54221b);
+    border-color:#c5b296 #241b17 #241b17 #c5b296
+}
+ .eyebrow {
+    color:#c99b4b
+}
+ h1 {
+    color:#efe1c7;
+    text-shadow:1px 1px #1b120e
+}
+ h1 span {
+    color:#bd4932
+}
+ .lead {
+    color:#c7b79c
+}
+ .badge {
+    background:#3a2921;
+    color:#e2c995;
+    border-color:#9b5b36
+}
+ .badge:before {
+    background:#b73527
+}
+ .panel,.card {
+    background:#51443a;
+    border-color:#c5b296 #241b17 #241b17 #c5b296
+}
+ .code {
+    background:#17120f;
+    color:#e0b65d;
+    border-color:#241b17 #c5b296 #c5b296 #241b17
+}
+ .code:focus {
+    border-color:#241b17 #c5b296 #c5b296 #241b17;
+    outline-color:#d0a354
+}
+ button {
+    background:#76634e;
+    color:#f3e6ce;
+    border-color:#c5b296 #241b17 #241b17 #c5b296;
+    box-shadow:1px 1px 0 #100c0a
+}
+ button:hover {
+    background:#897258
+}
+ button:active {
+    background:#66533f;
+    border-color:#241b17 #c5b296 #c5b296 #241b17
+}
+ .msg {
+    color:#c7b79c
+}
+.msg.error {
+    color:#ff9279
+}
+.msg.ok {
+    color:#b4c17c
+}
+ .result h2,.card h2 {
+    color:#d4ab60
+}
+ .stat,.weapons,.ammo {
+    background:#372d26;
+    border-color:#211914 #a48f73 #a48f73 #211914
+}
+ .stat label,.weapons label,.ammo label,.field label {
+    color:#c1ad8c
+}
+ .chip {
+    background:#732b20;
+    border-color:#a2472c;
+    color:#f0d8a4
+}
+ .empty {
+    color:#9f927e
+}
+.ammo-line {
+    color:#e3d5bd
+}
+ .card p {
+    color:#d1c2a8
+}
+ .foot {
+    color:#b6a58a
+}
+.foot a {
+    color:#e0b65d
+}
+ .generator summary {
+    color:#e0b65d
+}
+ .field input,.field select {
+    background:#e4d5b8;
+    color:#211914;
+    border-color:#241b17 #c5b296 #c5b296 #241b17
+}
+ .field select {
+    background-color:#e4d5b8;
+    background-image:none;
+    box-shadow:inset 1px 1px #9e896b
+}
+ .field input:focus,.field select:focus {
+    outline-color:#5a1f18
+}
+ .checks label {
+    background:#45372d;
+    color:#e6d6ba
+}
+ .checks input[type="checkbox"] {
+    background:#e4d5b8;
+    border-color:#241b17 #c5b296 #c5b296 #241b17;
+    box-shadow:inset 1px 1px #9e896b
+}
+ .checks input[type="checkbox"]:checked:after {
+    background:#5b2118
+}
+ .checks input[type="checkbox"]:focus-visible {
+    outline-color:#edc466
+}
+ .gen-actions .secondary {
+    background:#665540
+}
+ .generated {
+    background:#17120f;
+    color:#e0b65d;
+    border-color:#241b17 #c5b296 #c5b296 #241b17
+}
+ .generated small {
+    color:#c7b79c
+}
+ .field.select-field {
+    position:relative
+}
+ .field.select-field select {
+    -webkit-appearance:none;
+    appearance:none;
+    display:block;
+    width:100%;
+    min-height:34px;
+    padding:6px 34px 6px 8px;
+    background:#e4d5b8;
+    background-image:none;
+    border:2px solid;
+    border-color:#241b17 #c5b296 #c5b296 #241b17;
+    border-radius:0;
+    box-shadow:inset 1px 1px #9e896b;
+    color:#211914;
+    font:14px Tahoma,Verdana,Arial,sans-serif;
+    line-height:18px
+}
+ .field.select-field:after {
+    content:"";
+    position:absolute;
+    right:13px;
+    top:32px;
+    width:7px;
+    height:7px;
+    border-right:2px solid #5b2118;
+    border-bottom:2px solid #5b2118;
+    transform:rotate(45deg);
+    pointer-events:none
+}
+ .field.select-field select:focus {
+    outline:1px dotted #5a1f18;
+    outline-offset:-5px
+}
+ .weapon-picker {
+    margin:16px 0 0;
+    padding:12px;
+    border:2px solid;
+    border-color:#a48f73 #211914 #211914 #a48f73;
+    background:#45372d
+}
+ .weapon-picker legend {
+    padding:0 7px;
+    color:#e0b65d;
+    font-weight:bold;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase
+}
+ #weaponChecks {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+    margin:0
+}
+ #weaponChecks label {
+    display:flex;
+    align-items:center;
+    min-height:34px;
+    padding:6px 8px;
+    border:1px solid #79634d;
+    background:#372d26;
+    color:#e6d6ba;
+    font-size:13px
+}
+ #weaponChecks label:hover {
+    background:#514034
+}
+ #weaponChecks input[type="checkbox"] {
+    flex:none;
+    margin-right:8px
+}
+ .backpack-check {
+    margin-top:10px
+}
+ @media(max-width:420px) {
+    #weaponChecks label {
+        font-size:12px;
+        padding:5px 6px
+    }
+
+}
+ .mode-select {
+    margin-bottom:12px;
+    max-width:440px
+}
+ .msg:empty {
+    display:none
+}
+ .artifact-picker {
+    margin:12px 0 0;
+    padding:10px 12px;
+    border:2px solid;
+    border-color:#a48f73 #211914 #211914 #a48f73;
+    background:#45372d
+}
+ .artifact-picker legend {
+    padding:0 7px;
+    color:#e0b65d;
+    font-weight:bold;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase
+}
+ #d64WeaponChecks {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+    margin:0
+}
+ #d64WeaponChecks label {
+    display:flex;
+    align-items:center;
+    min-height:34px;
+    padding:6px 8px;
+    border:1px solid #79634d;
+    background:#372d26;
+    color:#e6d6ba;
+    font-size:13px
+}
+ #d64WeaponChecks input[type="checkbox"] {
+    flex:none;
+    margin-right:8px
+}
+ .artifact-picker .checks {
+    margin:0
+}
+ .artifact-stat {
+    margin-top:10px
+}
+ .param-group {
+    margin-top:14px;
+    padding:10px 12px 12px;
+    border:2px solid;
+    border-color:#a48f73 #211914 #211914 #a48f73;
+    background:#403229
+}
+ .param-group h3 {
+    margin:0 0 10px;
+    color:#e0b65d;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase
+}
+ .param-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px
+}
+ .player-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    align-items:start
+}
+ .player-stats {
+    padding:4px 0
+}
+ .ammo-grid {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:10px
+}
+ .ammo-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    align-content:start;
+    padding:4px 0
+}
+ .ammo-actions {
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:auto;
+    padding-top:10px
+}
+ .ammo-controls {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-self:stretch
+}
+ #encodeForm .gen-actions button[type="submit"],#d64EncodeForm .gen-actions button[type="submit"] {
+    background:#bd4932;
+    color:#fff0dc
+}
+ #encodeForm .gen-actions button[type="submit"]:hover,#d64EncodeForm .gen-actions button[type="submit"]:hover {
+    background:#d4583b
+}
+ #encodeForm .gen-actions button[type="submit"]:active,#d64EncodeForm .gen-actions button[type="submit"]:active {
+    background:#8f2e21
+}
+ @media(max-width:640px) {
+    .player-grid {
+        grid-template-columns:1fr
+    }
+    .ammo-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr))
+    }
+
+}
+ .gen-actions button[type="submit"] {
+    background:#c65a24;
+    color:#fff1d4;
+    border-color:#f0a04a #4d2017 #4d2017 #f0a04a
+}
+ .gen-actions button[type="submit"]:hover {
+    background:#df7130
+}
+ .gen-actions button[type="submit"]:active {
+    background:#ad481d;
+    border-color:#4d2017 #f0a04a #f0a04a #4d2017
+}
