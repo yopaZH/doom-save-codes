@@ -1065,6 +1065,7 @@ button:hover {
     min-width:0
 }
  .radio-option input[type="radio"] {
+    -webkit-appearance:none;
     appearance:none;
     display:grid;
     flex:0 0 16px;
