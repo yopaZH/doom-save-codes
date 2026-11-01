@@ -425,6 +425,23 @@ button:hover {
     background:#665540;
     color:#f0dfc1
 }
+ .row .icon-button {
+    align-self:center;
+    display:grid;
+    flex:0 0 38px;
+    place-items:center;
+    width:38px;
+    height:38px;
+    min-height:38px;
+    padding:0;
+    font-size:24px;
+    line-height:1
+}
+ .decode-actions {
+    display:flex;
+    align-items:center;
+    gap:8px
+}
  .code {
     background:#fff;
     color:#000080;
@@ -606,6 +623,19 @@ button:hover {
         padding:12px
     }
     .row button {
+        min-height:42px
+    }
+    .decode-actions {
+        width:100%
+    }
+    .decode-actions button[type="submit"] {
+        flex:1
+    }
+    .row .icon-button {
+        align-self:auto;
+        flex:0 0 42px;
+        width:42px;
+        height:42px;
         min-height:42px
     }
     .gen-actions {
@@ -965,6 +995,7 @@ button:hover {
     display:flex;
     align-items:flex-end;
     justify-content:flex-end;
+    gap:8px;
     margin-top:auto
 }
  .player-grid {
@@ -1030,8 +1061,11 @@ button:hover {
     }
     .ammo-actions>button {
         width:100%;
+        height:42px;
+        min-height:42px;
         padding-left:6px;
-        padding-right:6px
+        padding-right:6px;
+        line-height:1
     }
     .player-grid {
         grid-template-columns:1fr
@@ -1041,6 +1075,11 @@ button:hover {
     }
     .ammo-stack {
         padding-bottom:0
+    }
+    .ammo-stack .field input,
+    .ammo-actions .backpack-check label {
+        height:36px;
+        min-height:36px
     }
 
 }
@@ -1056,6 +1095,23 @@ button:hover {
     background:#ad481d;
     border-color:#4d2017 #f0a04a #f0a04a #4d2017
 }
+ @media(min-width:641px) {
+    .gen-actions button[type="submit"] {
+        order:1;
+        margin-left:auto
+    }
+    .gen-actions .secondary {
+        order:0
+    }
+ }
+ @media(max-width:640px) {
+    .gen-actions .secondary {
+        order:0
+    }
+    .gen-actions button[type="submit"] {
+        order:1
+    }
+ }
  .radio-group {
     min-width:0;
     margin:0;
@@ -1160,9 +1216,17 @@ button:hover {
         grid-template-columns:1fr
     }
     .health-actions {
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
         margin-top:12px
     }
     .health-actions button {
-        width:100%
+        width:100%;
+        height:42px;
+        min-height:42px;
+        padding-left:4px;
+        padding-right:4px;
+        line-height:1
     }
  }

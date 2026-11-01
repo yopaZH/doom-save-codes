@@ -15,7 +15,7 @@
   <label class="radio-option"><input type="radio" name="gameMode" value="final"><span>Final DOOM (PlayStation)</span></label>
   <label class="radio-option"><input type="radio" name="gameMode" value="doom64"><span>DOOM 64 (Nintendo 64)</span></label>
  </div></fieldset>
- <form id="decodeForm"><div class="row"><input class="code" id="password" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="10" placeholder="VBVXVVXVVV" aria-label="10-character password"><button type="submit">Decode password</button><button class="secondary" id="resetDecoder" type="button">Reset</button></div></form>
+ <form id="decodeForm"><div class="row"><input class="code" id="password" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="10" placeholder="VBVXVVXVVV" aria-label="10-character password"><div class="decode-actions"><button type="submit">Decode password</button><button class="secondary icon-button" id="resetDecoder" type="button" aria-label="Reset decoder" title="Reset decoder">&times;</button></div></div></form>
  <div id="message" class="msg" aria-live="polite">Valid characters: b c d f g h j k l m n p q r s t v w x y z 0–9 and !</div>
  <div id="result" class="result" aria-live="polite">
   <h2>Save parameters</h2>
@@ -57,7 +57,7 @@
     <label class="radio-option"><input type="radio" name="gArmorType" value="1"><span>Green</span></label>
     <label class="radio-option"><input type="radio" name="gArmorType" value="2"><span>Blue</span></label>
    </div></fieldset>
-    <div class="health-actions"><button class="secondary" id="gMaxHealth" type="button">Max Health &amp; Armor</button></div>
+    <div class="health-actions"><button class="secondary" id="gMaxHealth" type="button">Max Health &amp; Armor</button><button class="secondary" id="gResetHealth" type="button">Reset</button></div>
    </div>
   </div></section>
   <section class="param-group"><h3>Weapons &amp; Ammo</h3><div class="player-grid">
@@ -67,7 +67,7 @@
     <div class="field"><label for="gShells">Shells (0–100)</label><input id="gShells" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="gRockets">Rockets (0–100)</label><input id="gRockets" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="gCells">Energy cells (0–600)</label><input id="gCells" type="number" min="0" max="600" value="0"></div>
-   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="gBackpack" type="checkbox"> Backpack</label></div><button class="secondary" id="gMaxAmmo" type="button">Max Ammo</button><button class="secondary" id="gResetAmmo" type="button">Reset to default</button></div></div>
+   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="gBackpack" type="checkbox"> Backpack</label></div><button class="secondary" id="gMaxAmmo" type="button">Max Ammo</button><button class="secondary" id="gResetAmmo" type="button">Reset</button></div></div>
   </div></section>
   <div class="gen-actions"><button type="submit">Generate password</button><button class="secondary" id="giveAll" type="button">Give everything</button><button class="secondary" id="resetGen" type="button">Reset</button></div>
  </form>
@@ -92,7 +92,7 @@
     <label class="radio-option"><input type="radio" name="d64ArmorType" value="1"><span>Green</span></label>
     <label class="radio-option"><input type="radio" name="d64ArmorType" value="2"><span>Blue</span></label>
    </div></fieldset>
-    <div class="health-actions"><button class="secondary" id="d64MaxHealth" type="button">Max Health &amp; Armor</button></div>
+    <div class="health-actions"><button class="secondary" id="d64MaxHealth" type="button">Max Health &amp; Armor</button><button class="secondary" id="d64ResetHealth" type="button">Reset</button></div>
    </div>
   </div></section>
   <section class="param-group"><h3>Weapons &amp; Ammo</h3><div class="player-grid">
@@ -102,7 +102,7 @@
     <div class="field"><label for="d64Shells">Shells (0–100)</label><input id="d64Shells" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="d64Rockets">Rockets (0–100)</label><input id="d64Rockets" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="d64Cells">Energy cells (0–600)</label><input id="d64Cells" type="number" min="0" max="600" value="0"></div>
-   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="d64Backpack" type="checkbox"> Backpack</label></div><button class="secondary" id="d64MaxAmmo" type="button">Max Ammo</button><button class="secondary" id="d64ResetAmmo" type="button">Reset to default</button></div></div>
+   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="d64Backpack" type="checkbox"> Backpack</label></div><button class="secondary" id="d64MaxAmmo" type="button">Max Ammo</button><button class="secondary" id="d64ResetAmmo" type="button">Reset</button></div></div>
   </div></section>
   <div class="gen-actions"><button type="submit">Generate password</button><button class="secondary" id="d64GiveAll" type="button">Give everything</button><button class="secondary" id="d64Reset" type="button">Reset</button></div>
  </form>

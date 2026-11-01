@@ -100,8 +100,11 @@
  $('d64MaxAmmo').addEventListener('click',()=>setAmmo('d64',true));$('d64ResetAmmo').addEventListener('click',()=>setAmmo('d64',false));
  const setChoice=(name,value)=>{const input=document.querySelector(`input[name="${name}"][value="${value}"]`);if(input)input.checked=true;};
  const maxHealthArmor=prefix=>{$(`${prefix}Health`).value=200;$(`${prefix}Armor`).value=200;setChoice(`${prefix}ArmorType`,2);};
+ const resetHealthArmor=prefix=>{$(`${prefix}Health`).value=100;$(`${prefix}Armor`).value=0;setChoice(`${prefix}ArmorType`,0);};
  $('gMaxHealth').addEventListener('click',()=>maxHealthArmor('g'));
+ $('gResetHealth').addEventListener('click',()=>resetHealthArmor('g'));
  $('d64MaxHealth').addEventListener('click',()=>maxHealthArmor('d64'));
+ $('d64ResetHealth').addEventListener('click',()=>resetHealthArmor('d64'));
  $('giveAll').addEventListener('click',()=>{for(let i=0;i<7;i++)$(`gWeapon${i}`).checked=true;$('gBackpack').checked=true;updateAmmoLimits('g');$('gHealth').value=200;$('gArmor').value=200;setChoice('gArmorType',2);$('gBullets').value=400;$('gShells').value=100;$('gRockets').value=100;$('gCells').value=600;});
  $('resetGen').addEventListener('click',()=>{$('encodeForm').reset();updateAmmoLimits('g');$('generated').classList.remove('show');$('genMessage').textContent='Settings reset.';});
  $('d64GiveAll').addEventListener('click',()=>{for(let i=0;i<8;i++)$(`d64Weapon${i}`).checked=true;$('d64Backpack').checked=true;updateAmmoLimits('d64');$('d64Health').value=200;$('d64Armor').value=200;setChoice('d64ArmorType',2);$('d64Bullets').value=400;$('d64Shells').value=100;$('d64Rockets').value=100;$('d64Cells').value=600;$('d64Fast').checked=$('d64Double').checked=$('d64Triple').checked=true;});
