@@ -421,6 +421,10 @@ button:hover {
  .row {
     gap:8px
 }
+ .row button.secondary {
+    background:#665540;
+    color:#f0dfc1
+}
  .code {
     background:#fff;
     color:#000080;
@@ -845,6 +849,24 @@ button:hover {
  .backpack-check {
     margin:0
 }
+ .backpack-check label {
+    display:flex;
+    align-items:center;
+    height:34px;
+    padding:0 8px;
+    border:1px solid #79634d;
+    background:#372d26;
+    color:#e6d6ba;
+    font-size:13px;
+    cursor:pointer
+}
+ .backpack-check label:hover {
+    background:#514034
+}
+ .backpack-check input[type="checkbox"] {
+    flex:none;
+    margin-right:8px
+}
  @media(max-width:420px) {
     #weaponChecks label {
         font-size:12px;
@@ -990,11 +1012,32 @@ button:hover {
     background:#8f2e21
 }
  @media(max-width:640px) {
+    .ammo-actions {
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        row-gap:12px;
+        padding-top:12px
+    }
+    .ammo-actions .backpack-check {
+        grid-column:1/-1;
+        justify-self:stretch
+    }
+    .ammo-actions .backpack-check label {
+        width:100%
+    }
+    .ammo-actions>button {
+        width:100%;
+        padding-left:6px;
+        padding-right:6px
+    }
     .player-grid {
         grid-template-columns:1fr
     }
     .ammo-grid {
         grid-template-columns:repeat(2,minmax(0,1fr))
+    }
+    .ammo-stack {
+        padding-bottom:0
     }
 
 }
@@ -1101,6 +1144,9 @@ button:hover {
     align-self:start
 }
  @media(max-width:640px) {
+    .param-grid {
+        grid-template-columns:1fr
+    }
     .game-options {
         grid-template-columns:1fr
     }
@@ -1109,5 +1155,11 @@ button:hover {
     }
     .health-armor-grid {
         grid-template-columns:1fr
+    }
+    .health-actions {
+        margin-top:12px
+    }
+    .health-actions button {
+        width:100%
     }
  }

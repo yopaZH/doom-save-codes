@@ -106,6 +106,7 @@
  $('resetGen').addEventListener('click',()=>{$('encodeForm').reset();updateAmmoLimits('g');$('generated').classList.remove('show');$('genMessage').textContent='Settings reset.';});
  $('d64GiveAll').addEventListener('click',()=>{for(let i=0;i<8;i++)$(`d64Weapon${i}`).checked=true;$('d64Backpack').checked=true;updateAmmoLimits('d64');$('d64Health').value=200;$('d64Armor').value=200;setChoice('d64ArmorType',2);$('d64Bullets').value=400;$('d64Shells').value=100;$('d64Rockets').value=100;$('d64Cells').value=600;$('d64Fast').checked=$('d64Double').checked=$('d64Triple').checked=true;});
  $('d64Reset').addEventListener('click',()=>{$('d64EncodeForm').reset();updateAmmoLimits('d64');$('d64Generated').classList.remove('show');$('d64GenMessage').textContent='Settings reset.';});
+ $('resetDecoder').addEventListener('click',()=>{$('password').value='';$('result').classList.remove('show');$('artifactStat').hidden=true;$('message').className='msg';$('message').textContent=mode()==='doom64'?'DOOM 64 password: 16 characters · valid characters include ?':'Valid characters: b c d f g h j k l m n p q r s t v w x y z 0–9 and !';});
  $('decodeForm').addEventListener('submit',e=>{e.preventDefault();const msg=$('message');try{render(decode($('password').value));msg.className='msg ok';msg.textContent='Valid password. These are the values the game will restore.';}catch(err){$('result').classList.remove('show');msg.className='msg error';msg.textContent=err.message;}});
  updateMode();updateAmmoLimits('g');updateAmmoLimits('d64');
 })();
