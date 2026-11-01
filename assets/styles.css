@@ -809,7 +809,7 @@ button:hover {
     outline-offset:-5px
 }
  .weapon-picker {
-    margin:16px 0 0;
+    margin:0;
     padding:12px;
     border:2px solid;
     border-color:#a48f73 #211914 #211914 #a48f73;
@@ -1012,6 +1012,9 @@ button:hover {
     background:#8f2e21
 }
  @media(max-width:640px) {
+    .weapon-picker {
+        margin-top:2px
+    }
     .ammo-actions {
         display:grid;
         grid-template-columns:repeat(2,minmax(0,1fr));
