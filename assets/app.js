@@ -7,13 +7,14 @@
  const d64Weapons=['Chainsaw','Shotgun','Super Shotgun','Chaingun','Missile Launcher','Plasma Gun','BFG9000','Unmaker'];
  const d64Levels=['Staging Area','The Terraformer','Main Engineering','Holding Area','Tech Center','Alpha Quadrant','Research Lab','Final Outpost','Even Simpler','The Bleeding','Terror Core','Altar of Pain','Dark Citadel','Eye of the Storm','Dark Entries','Blood Keep','Watch Your Step','Spawned Fear','The Spiral','Breakdown','Pitfalls','Burnt Offerings','Unholy Temple','No Escape','Cat and Mouse','Hardcore','Playground','The Absolution','Outpost Omega','The Lair','In the Void','Hectic'];
  const d64PasswordTable=[1,8,9,5,6,2,7,0,4,3];
- const $=id=>document.getElementById(id),readInt=id=>Number.parseInt($(id).value,10),mode=()=>$('gameMode').value;
+ const $=id=>document.getElementById(id),readInt=id=>Number.parseInt($(id).value,10),choice=id=>document.querySelector(`input[name="${id}"]:checked`),readChoice=id=>Number.parseInt(choice(id).value,10),mode=()=>choice('gameMode').value;
  const quantize=(value,max)=>value===0?0:Math.min(8,Math.ceil(value*8/max));
  $('weaponChecks').innerHTML=weaponNames.map((name,i)=>`<label><input type="checkbox" id="gWeapon${i}"> ${name}</label>`).join('');
  $('d64WeaponChecks').innerHTML=d64Weapons.map((name,i)=>`<label><input type="checkbox" id="d64Weapon${i}"> ${name}</label>`).join('');
  function decodeClassic(code){
-  if(code.length!==10)throw Error('Enter all 10 password characters.');
-  const symbols=Array.from(code,ch=>{const n=alphabet.indexOf(ch);if(n<0)throw Error('The password contains an invalid character.');return n;});
+  const clean=code.toLowerCase().replace(/\s/g,'');
+  if(clean.length!==10)throw Error('Enter all 10 password characters.');
+  const symbols=Array.from(clean,ch=>{const n=alphabet.indexOf(ch);if(n<0)throw Error('The password contains an invalid character.');return n;});
   const raw=symbols.slice();for(let i=0;i<9;i++)raw[i]^=raw[9];
   let check=0;for(let i=0;i<9;i++)check^=raw[i];if(check!==raw[9])throw Error('Checksum mismatch. Check the password characters.');
   const bytes=new Array(6).fill(0);let bit=0;
@@ -51,8 +52,9 @@
   $('artifactStat').hidden=!data.artifacts;$('artifacts').textContent=data.artifacts?.length?data.artifacts.join(', '):'None';$('result').classList.add('show');
  }
  function encodeClassic(){
-  const level=readInt('gLevel'),skill=readInt('gSkill'),health=readInt('gHealth'),armor=readInt('gArmor'),armorType=readInt('gArmorType'),backpack=$('gBackpack').checked,msg=$('genMessage'),max=mode()==='final'?29:59;
+  const level=readInt('gLevel'),skill=readChoice('gSkill'),health=readInt('gHealth'),armor=readInt('gArmor'),armorType=readChoice('gArmorType'),backpack=$('gBackpack').checked,msg=$('genMessage'),max=mode()==='final'?29:59;
   if(level<1||level>max||level===54||health<1||health>200||armor<0||armor>200){msg.className='msg error';msg.textContent=`Check the values. Valid levels are 1–${mode()==='final'?'29':'59, except 54'}.`;return;}
+  if(armor>0&&armorType===0){msg.className='msg error';msg.textContent='Choose Green or Blue armor when armor is above 0%.';return;}
   const mul=backpack?2:1,clip=quantize(readInt('gBullets'),200*mul),shell=quantize(readInt('gShells'),50*mul),rocket=quantize(readInt('gRockets'),50*mul),cell=quantize(readInt('gCells'),300*mul);
   let weaponBits=backpack?128:0;for(let i=0;i<7;i++)if($(`gWeapon${i}`).checked)weaponBits|=1<<i;
   const bytes=[(level<<2)|skill,weaponBits,(clip<<4)|shell,(cell<<4)|rocket,(quantize(health,200)<<4)|quantize(armor,200),armorType<<3],groups=[];
@@ -62,7 +64,7 @@
   $('message').textContent='Generated password copied into the decoder field.';$('message').className='msg ok';msg.className='msg ok';msg.textContent='Password generated locally.';
  }
  function encodeD64(){
-  const level=readInt('d64Level'),skill=readInt('d64Skill'),health=readInt('d64Health'),armor=readInt('d64Armor'),armorType=readInt('d64ArmorType'),backpack=$('d64Backpack').checked,msg=$('d64GenMessage');
+  const level=readInt('d64Level'),skill=readChoice('d64Skill'),health=readInt('d64Health'),armor=readInt('d64Armor'),armorType=readChoice('d64ArmorType'),backpack=$('d64Backpack').checked,msg=$('d64GenMessage');
   if(level<1||level>32||health<0||health>200||armor<0||armor>200||(armor>0&&armorType===0)){msg.className='msg error';msg.textContent='Check the level, health, armor type, and armor values.';return;}
   const multiplier=backpack?2:1;let weapons=0;
   for(let i=0;i<8;i++)if($(`d64Weapon${i}`).checked)weapons|=1<<i;
@@ -85,19 +87,24 @@
   $('message').className='msg';$('message').textContent=d64?'DOOM 64 password: 16 characters · valid characters include ?':'Valid characters: b c d f g h j k l m n p q r s t v w x y z 0–9 and !';
   $('generated').classList.remove('show');$('d64Generated').classList.remove('show');$('genMessage').textContent='';$('d64GenMessage').textContent='';
  }
- $('gameMode').addEventListener('change',updateMode);
+ document.querySelectorAll('input[name="gameMode"]').forEach(input=>input.addEventListener('change',updateMode));
  $('password').addEventListener('input',e=>{const chars=mode()==='doom64'?d64Alphabet:alphabet,limit=mode()==='doom64'?16:10,clean=e.target.value.toLowerCase().replace(/\s/g,'').split('').filter(ch=>chars.includes(ch)).join('').slice(0,limit);if(clean!==e.target.value.toLowerCase().replace(/\s/g,'').slice(0,limit))e.target.value=clean;});
- $('encodeForm').addEventListener('submit',e=>{e.preventDefault();encodeClassic();});
- $('d64EncodeForm').addEventListener('submit',e=>{e.preventDefault();encodeD64();});
+ function keepFormInPlace(form,action){const top=form.getBoundingClientRect().top;action();requestAnimationFrame(()=>{const shift=form.getBoundingClientRect().top-top;if(Math.abs(shift)>1)window.scrollBy(0,shift);});}
+ $('encodeForm').addEventListener('submit',e=>{e.preventDefault();keepFormInPlace(e.currentTarget,encodeClassic);});
+ $('d64EncodeForm').addEventListener('submit',e=>{e.preventDefault();keepFormInPlace(e.currentTarget,encodeD64);});
  const ammoKinds=[['Bullets',200],['Shells',50],['Rockets',50],['Cells',300]];
  function updateAmmoLimits(prefix){const factor=$(`${prefix}Backpack`).checked?2:1;for(const [name,base] of ammoKinds){const input=$(`${prefix}${name}`),limit=base*factor;input.max=limit;input.previousElementSibling.textContent=`${name} (0–${limit})`;if(Number(input.value)>limit)input.value=limit;}}
  const setAmmo=(prefix,fill)=>{const max=$(`${prefix}Backpack`).checked?2:1;$(`${prefix}Bullets`).value=fill?200*max:50;$(`${prefix}Shells`).value=fill?50*max:0;$(`${prefix}Rockets`).value=fill?50*max:0;$(`${prefix}Cells`).value=fill?300*max:0;};
  $('gBackpack').addEventListener('change',()=>updateAmmoLimits('g'));$('d64Backpack').addEventListener('change',()=>updateAmmoLimits('d64'));
  $('gMaxAmmo').addEventListener('click',()=>setAmmo('g',true));$('gResetAmmo').addEventListener('click',()=>setAmmo('g',false));
  $('d64MaxAmmo').addEventListener('click',()=>setAmmo('d64',true));$('d64ResetAmmo').addEventListener('click',()=>setAmmo('d64',false));
- $('giveAll').addEventListener('click',()=>{for(let i=0;i<7;i++)$(`gWeapon${i}`).checked=true;$('gBackpack').checked=true;updateAmmoLimits('g');$('gHealth').value=200;$('gArmor').value=200;$('gArmorType').value=2;$('gBullets').value=400;$('gShells').value=100;$('gRockets').value=100;$('gCells').value=600;});
+ const setChoice=(name,value)=>{const input=document.querySelector(`input[name="${name}"][value="${value}"]`);if(input)input.checked=true;};
+ const maxHealthArmor=prefix=>{$(`${prefix}Health`).value=200;$(`${prefix}Armor`).value=200;setChoice(`${prefix}ArmorType`,2);};
+ $('gMaxHealth').addEventListener('click',()=>maxHealthArmor('g'));
+ $('d64MaxHealth').addEventListener('click',()=>maxHealthArmor('d64'));
+ $('giveAll').addEventListener('click',()=>{for(let i=0;i<7;i++)$(`gWeapon${i}`).checked=true;$('gBackpack').checked=true;updateAmmoLimits('g');$('gHealth').value=200;$('gArmor').value=200;setChoice('gArmorType',2);$('gBullets').value=400;$('gShells').value=100;$('gRockets').value=100;$('gCells').value=600;});
  $('resetGen').addEventListener('click',()=>{$('encodeForm').reset();updateAmmoLimits('g');$('generated').classList.remove('show');$('genMessage').textContent='Settings reset.';});
- $('d64GiveAll').addEventListener('click',()=>{for(let i=0;i<8;i++)$(`d64Weapon${i}`).checked=true;$('d64Backpack').checked=true;updateAmmoLimits('d64');$('d64Health').value=200;$('d64Armor').value=200;$('d64ArmorType').value=2;$('d64Bullets').value=400;$('d64Shells').value=100;$('d64Rockets').value=100;$('d64Cells').value=600;$('d64Fast').checked=$('d64Double').checked=$('d64Triple').checked=true;});
+ $('d64GiveAll').addEventListener('click',()=>{for(let i=0;i<8;i++)$(`d64Weapon${i}`).checked=true;$('d64Backpack').checked=true;updateAmmoLimits('d64');$('d64Health').value=200;$('d64Armor').value=200;setChoice('d64ArmorType',2);$('d64Bullets').value=400;$('d64Shells').value=100;$('d64Rockets').value=100;$('d64Cells').value=600;$('d64Fast').checked=$('d64Double').checked=$('d64Triple').checked=true;});
  $('d64Reset').addEventListener('click',()=>{$('d64EncodeForm').reset();updateAmmoLimits('d64');$('d64Generated').classList.remove('show');$('d64GenMessage').textContent='Settings reset.';});
  $('decodeForm').addEventListener('submit',e=>{e.preventDefault();const msg=$('message');try{render(decode($('password').value));msg.className='msg ok';msg.textContent='Valid password. These are the values the game will restore.';}catch(err){$('result').classList.remove('show');msg.className='msg error';msg.textContent=err.message;}});
  updateMode();updateAmmoLimits('g');updateAmmoLimits('d64');

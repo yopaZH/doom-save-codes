@@ -10,7 +10,11 @@
 <h1><span>DOOM</span><br>Password Generator</h1>
 <p class="lead">Generate and decode passwords for the classic console DOOM games and DOOM 64. Each mode uses its game's own password format.</p>
 <section class="panel" aria-label="Password decoder">
- <div class="field select-field mode-select"><label for="gameMode">Game</label><select id="gameMode"><option value="doom">DOOM (PlayStation / Sega Saturn)</option><option value="final">Final DOOM (PlayStation)</option><option value="doom64">DOOM 64 (Nintendo 64)</option></select></div>
+ <fieldset class="radio-group mode-select"><legend>Game</legend><div class="radio-options game-options">
+  <label class="radio-option"><input type="radio" name="gameMode" value="doom" checked><span>DOOM (PlayStation / Sega Saturn)</span></label>
+  <label class="radio-option"><input type="radio" name="gameMode" value="final"><span>Final DOOM (PlayStation)</span></label>
+  <label class="radio-option"><input type="radio" name="gameMode" value="doom64"><span>DOOM 64 (Nintendo 64)</span></label>
+ </div></fieldset>
  <form id="decodeForm"><div class="row"><input class="code" id="password" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="10" placeholder="VBVXVVXVVV" aria-label="10-character password"><button type="submit">Decode password</button></div></form>
  <div id="message" class="msg" aria-live="polite">Valid characters: b c d f g h j k l m n p q r s t v w x y z 0–9 and !</div>
  <div id="result" class="result" aria-live="polite">
@@ -36,21 +40,34 @@
  <form id="encodeForm" class="mode-form">
   <section class="param-group"><h3>Level &amp; Difficulty</h3><div class="param-grid">
    <div class="field"><label for="gLevel">Level (1–59, except 54)</label><input id="gLevel" type="number" min="1" max="59" value="1" required></div>
-   <div class="field select-field"><label for="gSkill">Difficulty</label><select id="gSkill"><option value="0">I'm Too Young to Die</option><option value="1">Hey, Not Too Rough</option><option value="2">Hurt Me Plenty</option><option value="3">Ultra-Violence</option></select></div>
+   <fieldset class="radio-group field-radio"><legend>Difficulty</legend><div class="radio-options difficulty-options">
+    <label class="radio-option"><input type="radio" name="gSkill" value="0" checked><span>I'm Too Young to Die</span></label>
+    <label class="radio-option"><input type="radio" name="gSkill" value="1"><span>Hey, Not Too Rough</span></label>
+    <label class="radio-option"><input type="radio" name="gSkill" value="2"><span>Hurt Me Plenty</span></label>
+    <label class="radio-option"><input type="radio" name="gSkill" value="3"><span>Ultra-Violence</span></label>
+   </div></fieldset>
   </div></section>
-  <section class="param-group"><h3>Health &amp; Armor</h3><div class="param-grid">
-   <div class="field"><label for="gHealth">Health (1–200%)</label><input id="gHealth" type="number" min="1" max="200" value="100" required></div>
-   <div class="field"><label for="gArmor">Armor (0–200%)</label><input id="gArmor" type="number" min="0" max="200" value="0" required></div>
-   <div class="field select-field"><label for="gArmorType">Armor type</label><select id="gArmorType"><option value="0">None</option><option value="1">Green</option><option value="2">Blue</option></select></div>
+  <section class="param-group"><h3>Health &amp; Armor</h3><div class="health-armor-grid">
+   <div class="health-values">
+    <div class="field"><label for="gHealth">Health (1–200%)</label><input id="gHealth" type="number" min="1" max="200" value="100" required></div>
+    <div class="field"><label for="gArmor">Armor (0–200%)</label><input id="gArmor" type="number" min="0" max="200" value="0" required></div>
+   </div>
+   <div class="armor-controls"><fieldset class="radio-group field-radio"><legend>Armor type</legend><div class="radio-options armor-options">
+    <label class="radio-option"><input type="radio" name="gArmorType" value="0" checked><span>None</span></label>
+    <label class="radio-option"><input type="radio" name="gArmorType" value="1"><span>Green</span></label>
+    <label class="radio-option"><input type="radio" name="gArmorType" value="2"><span>Blue</span></label>
+   </div></fieldset>
+    <div class="health-actions"><button class="secondary" id="gMaxHealth" type="button">Max Health &amp; Armor</button></div>
+   </div>
   </div></section>
   <section class="param-group"><h3>Weapons &amp; Ammo</h3><div class="player-grid">
-   <div><fieldset class="weapon-picker"><legend>Weapons</legend><div class="checks" id="weaponChecks"></div></fieldset><div class="checks backpack-check"><label><input id="gBackpack" type="checkbox"> Backpack</label></div></div>
+   <div><fieldset class="weapon-picker"><legend>Weapons</legend><div class="checks" id="weaponChecks"></div></fieldset></div>
    <div class="ammo-controls"><div class="ammo-grid ammo-stack">
     <div class="field"><label for="gBullets">Bullets (0–400)</label><input id="gBullets" type="number" min="0" max="400" value="50"></div>
     <div class="field"><label for="gShells">Shells (0–100)</label><input id="gShells" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="gRockets">Rockets (0–100)</label><input id="gRockets" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="gCells">Energy cells (0–600)</label><input id="gCells" type="number" min="0" max="600" value="0"></div>
-   </div><div class="ammo-actions"><button class="secondary" id="gMaxAmmo" type="button">Max Ammo</button><button class="secondary" id="gResetAmmo" type="button">Reset to default</button></div></div>
+   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="gBackpack" type="checkbox"> Backpack</label></div><button class="secondary" id="gMaxAmmo" type="button">Max Ammo</button><button class="secondary" id="gResetAmmo" type="button">Reset to default</button></div></div>
   </div></section>
   <div class="gen-actions"><button type="submit">Generate password</button><button class="secondary" id="giveAll" type="button">Give everything</button><button class="secondary" id="resetGen" type="button">Reset</button></div>
  </form>
@@ -58,29 +75,42 @@
  <form id="d64EncodeForm" class="mode-form" hidden>
   <section class="param-group"><h3>Level &amp; Difficulty</h3><div class="param-grid">
    <div class="field"><label for="d64Level">Level (1–32)</label><input id="d64Level" type="number" min="1" max="32" value="1" required></div>
-   <div class="field select-field"><label for="d64Skill">Difficulty</label><select id="d64Skill"><option value="0">Be Gentle!</option><option value="1">Bring It On!</option><option value="2">I Own Doom!</option><option value="3">Watch Me Die!</option></select></div>
+   <fieldset class="radio-group field-radio"><legend>Difficulty</legend><div class="radio-options difficulty-options">
+    <label class="radio-option"><input type="radio" name="d64Skill" value="0" checked><span>Be Gentle!</span></label>
+    <label class="radio-option"><input type="radio" name="d64Skill" value="1"><span>Bring It On!</span></label>
+    <label class="radio-option"><input type="radio" name="d64Skill" value="2"><span>I Own Doom!</span></label>
+    <label class="radio-option"><input type="radio" name="d64Skill" value="3"><span>Watch Me Die!</span></label>
+   </div></fieldset>
   </div></section>
-  <section class="param-group"><h3>Health &amp; Armor</h3><div class="param-grid">
-   <div class="field"><label for="d64Health">Health (0–200%)</label><input id="d64Health" type="number" min="0" max="200" value="100" required></div>
-   <div class="field"><label for="d64Armor">Armor (0–200%)</label><input id="d64Armor" type="number" min="0" max="200" value="0" required></div>
-   <div class="field select-field"><label for="d64ArmorType">Armor type</label><select id="d64ArmorType"><option value="0">None</option><option value="1">Green</option><option value="2">Blue</option></select></div>
+  <section class="param-group"><h3>Health &amp; Armor</h3><div class="health-armor-grid">
+   <div class="health-values">
+    <div class="field"><label for="d64Health">Health (0–200%)</label><input id="d64Health" type="number" min="0" max="200" value="100" required></div>
+    <div class="field"><label for="d64Armor">Armor (0–200%)</label><input id="d64Armor" type="number" min="0" max="200" value="0" required></div>
+   </div>
+   <div class="armor-controls"><fieldset class="radio-group field-radio"><legend>Armor type</legend><div class="radio-options armor-options">
+    <label class="radio-option"><input type="radio" name="d64ArmorType" value="0" checked><span>None</span></label>
+    <label class="radio-option"><input type="radio" name="d64ArmorType" value="1"><span>Green</span></label>
+    <label class="radio-option"><input type="radio" name="d64ArmorType" value="2"><span>Blue</span></label>
+   </div></fieldset>
+    <div class="health-actions"><button class="secondary" id="d64MaxHealth" type="button">Max Health &amp; Armor</button></div>
+   </div>
   </div></section>
   <section class="param-group"><h3>Weapons &amp; Ammo</h3><div class="player-grid">
-   <div><fieldset class="weapon-picker"><legend>Weapons</legend><div class="checks" id="d64WeaponChecks"></div></fieldset><div class="checks backpack-check"><label><input id="d64Backpack" type="checkbox"> Backpack</label></div><fieldset class="artifact-picker"><legend>Demon artifacts</legend><div class="checks"><label><input id="d64Fast" type="checkbox"> Speed artifact</label><label><input id="d64Double" type="checkbox"> Double laser artifact</label><label><input id="d64Triple" type="checkbox"> Triple laser artifact</label></div></fieldset></div>
+   <div><fieldset class="weapon-picker"><legend>Weapons</legend><div class="checks" id="d64WeaponChecks"></div></fieldset><fieldset class="artifact-picker"><legend>Demon artifacts</legend><div class="checks"><label><input id="d64Fast" type="checkbox"> Speed artifact</label><label><input id="d64Double" type="checkbox"> Double laser artifact</label><label><input id="d64Triple" type="checkbox"> Triple laser artifact</label></div></fieldset></div>
    <div class="ammo-controls"><div class="ammo-grid ammo-stack">
     <div class="field"><label for="d64Bullets">Bullets (0–400)</label><input id="d64Bullets" type="number" min="0" max="400" value="50"></div>
     <div class="field"><label for="d64Shells">Shells (0–100)</label><input id="d64Shells" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="d64Rockets">Rockets (0–100)</label><input id="d64Rockets" type="number" min="0" max="100" value="0"></div>
     <div class="field"><label for="d64Cells">Energy cells (0–600)</label><input id="d64Cells" type="number" min="0" max="600" value="0"></div>
-   </div><div class="ammo-actions"><button class="secondary" id="d64MaxAmmo" type="button">Max Ammo</button><button class="secondary" id="d64ResetAmmo" type="button">Reset to default</button></div></div>
+   </div><div class="ammo-actions"><div class="checks backpack-check"><label><input id="d64Backpack" type="checkbox"> Backpack</label></div><button class="secondary" id="d64MaxAmmo" type="button">Max Ammo</button><button class="secondary" id="d64ResetAmmo" type="button">Reset to default</button></div></div>
   </div></section>
   <div class="gen-actions"><button type="submit">Generate password</button><button class="secondary" id="d64GiveAll" type="button">Give everything</button><button class="secondary" id="d64Reset" type="button">Reset</button></div>
  </form>
  <div id="d64Generated" class="generated" aria-live="polite"></div><div id="d64GenMessage" class="msg" aria-live="polite"></div>
 </details>
 <section class="info">
- <div class="card"><h2>What the password stores</h2><p>Level, difficulty, health, armor and armor type, collected weapons, four ammo counts, and backpack status. DOOM 64 passwords also store the Demon Key artifacts. Some values round up to fixed steps when the game loads the password.</p></div>
- <div class="card"><h2>Why some codes are rejected</h2><p>Each game has its own password format. DOOM and Final DOOM share a system, but use different level ranges. DOOM 64 uses a separate 16-character system; this mode supports original N64 levels 1–32.</p></div>
+ <div class="card"><h2>What a password saves</h2><p>Passwords store your level, difficulty, health, armor, weapons, ammo, and backpack. DOOM 64 also records Demon Key artifacts. Health, armor, and ammo use fixed steps, so the game may restore a nearby value instead of the exact number entered here.</p></div>
+ <div class="card"><h2>Choose the matching game</h2><p>PlayStation and Sega Saturn DOOM share a password format. Final DOOM uses the same format with its own level range. DOOM 64 uses a separate 16-character format for the Nintendo 64 release, with levels 1–32.</p></div>
 </section>
 <p class="foot">Sources: <a href="https://gamefaqs.gamespot.com/ps/919060-doom/faqs/76898" target="_blank" rel="noreferrer">PS1 / Saturn DOOM password FAQ</a> · <a href="https://github.com/Erick194/PSXDOOM-RE/blob/master/PSXDOOM/m_password.c" target="_blank" rel="noreferrer">PS1 DOOM algorithm analysis</a> · <a href="https://classicdoom.com/hosted/lpalin/d64pwfaq.htm" target="_blank" rel="noreferrer">DOOM 64 password mechanics FAQ</a> · <a href="https://github.com/Immorpher/doom64/blob/main/engines/passwords/d64pw.js" target="_blank" rel="noreferrer">DOOM 64 editor and algorithm reference</a>.</p>
 </main>
